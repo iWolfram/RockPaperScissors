@@ -9,17 +9,33 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBAction func hideKeyboard(_ sender: UITapGestureRecognizer) {
+        nameTextField.resignFirstResponder()
+    }
+    
+    var playerName = String()
+    
+    @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let gameVC = segue.destination as! GameViewController
+        if (nameTextField.text?.isEmpty)! {
+            gameVC.playerName = "PLAYER"
+        } else {
+            gameVC.playerName = nameTextField.text!
+        }
+    }
 
 }
 
